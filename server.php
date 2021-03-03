@@ -17,6 +17,12 @@ foreach ($argv as $arg) {
         createTestData($db_sqlite);
     }
 
+    
+    if ($arg === "genKeys") {
+        genKeys();
+        echo "OK";
+    }
+
     if ($arg === "runSocketServer") {
         runSocketServer(
             $config['socket_host'],
