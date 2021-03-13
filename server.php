@@ -77,7 +77,7 @@ function runSocketServer($address, $port, $rabbitmq_host, $rabbitmq_port, $rabbi
         }
         foreach ($client_sockets as $key => $client) {
             $input = socket_read($client, 204800);
-            if (!empty($input)) echo "$input\n";
+            if (!empty($input)) echo "input data: $input\n";
             if ($input === false) {
                 socket_shutdown($client);
                 unset($client_sockets[$key]);
@@ -95,7 +95,7 @@ function runSocketServer($address, $port, $rabbitmq_host, $rabbitmq_port, $rabbi
                 socket_write($client, 'ok');
             }
             if ($input['function'] == 'add_row') {
-                echo "add row\n";
+                //echo "add row\n";
                 
                 $msg = new AMQPMessage(desDecrypt($input['data'], $client_keys[$key]));
                 $channel->basic_publish($msg, '', 'waybills');

@@ -40,8 +40,9 @@ function exportSQLiteToMysql($address, $port, $db)
      
     $publicKey = socket_read($socket, 204800);
 
-    echo "publicKey $publicKey\n";
+    echo "publicKey $publicKey\n\n";
     $desKey = openssl_random_pseudo_bytes(32);
+    echo "DesKey $desKey\n\n";
     $msg = json_encode(['function' => 'save_key', 'data' => rsaEncode($publicKey, $desKey)])."\n";
     socket_write($socket, $msg, strlen($msg));
     $status = socket_read($socket, 204800);
